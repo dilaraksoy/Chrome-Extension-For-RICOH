@@ -8,7 +8,6 @@ chrome.tabs.query(
   }
 );
 
-let i = 0;
 chrome.browserAction.onClicked.addListener(function (tab) {
   chrome.tabs.query(
     {
@@ -16,24 +15,26 @@ chrome.browserAction.onClicked.addListener(function (tab) {
       lastFocusedWindow: true,
     },
     function (tabs) {
-      
       var tab = tabs[0];
       var mySiteUrl = "https://ricohspaces.app/en/home";
-      if (tab.url === mySiteUrl) {
-        alert("Please click again to enter your surname!");
+      if (
+        tab.url != mySiteUrl &&
+        tab.url.startsWith("https://ricohspaces.app/en/")
+      ) {
+        alert("Please go to Home page!");
+        chrome.runtime.reload();
+      } else if (tab.url === mySiteUrl) {
+        
 
         chrome.browserAction.setPopup({ popup: "./popup.html" });
         chrome.tabs.executeScript(null, { file: "./foreground.js" });
-      } else {
-        if (i === 0) {
-          alert("This extension is just for RICOH!");
-          chrome.runtime.reload()
-        }
-        i = 1;
+      } else if (
+        tab.url != mySiteUrl &&
+        !tab.url.startsWith("https://ricohspaces.app/en/")
+      ) {
+        alert("This extension is just for RICOH!");
+        chrome.runtime.reload();
       }
     }
   );
-  var mySiteUrl = "https://ricohspaces.app/en/home";
-
-  chrome.browserAction.setIcon({ path: "./icon.png", tabId: tab.id });
 });

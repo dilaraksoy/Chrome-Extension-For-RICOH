@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function (e) {
   var element = document.getElementById("button");
-
+  
   element.addEventListener("click", function () {
     var surname = document.getElementById("surname").value;
     var length = "";
@@ -23,8 +23,12 @@ document.addEventListener("DOMContentLoaded", function (e) {
     var desks = [];
     async function getData() {
       length = await readLocalStorage("length");
+      
       name = await readLocalStorage("name");
-
+      if(length===0){
+        alert("There is no bookings")
+        chrome.runtime.reload()
+      }
       if (length === 1) {
         day = await readLocalStorage("day");
         deskNo = await readLocalStorage("deskNo");

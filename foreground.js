@@ -23,10 +23,8 @@ chrome.storage.local.set({ name: setName() });
 const collectionOfDays = document.getElementsByClassName(
   "desk-bookings__desk ng-star-inserted"
 );
-if(collectionOfDays.length===0){
-  alert("There is no bookings")
-  chrome.runtime.reload()
-}
+
+alert("Please click again to enter your surname!");
 var length = collectionOfDays.length;
 chrome.storage.local.set({ length: length });
 var daysInWeek = [
