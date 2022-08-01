@@ -1,0 +1,21 @@
+body{
+    background-color: #2b3252;
+}
+.form-control{
+    border: none ;
+    border-radius: 2rem;
+    color:  #4e598d
+}   
+#surnamelabel{
+    margin-bottom: 10%;
+    color: rgb(255, 254, 254);
+}
+
+#user{
+    color: rgb(255, 254, 254);
+}
+#button{
+    margin-top: 20%;
+    border-radius: 2rem;
+    margin-left: 30%;
+}
