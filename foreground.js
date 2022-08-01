@@ -99,7 +99,7 @@ function getUser() {
     } else if (month >= 10) {
       for (let i = 0; i < length; i++) {
         day = addStr(day, counter, "." + month + "." + year);
-        counter = counter + 10;
+        counter = counter + 11;
         
       }
     }
