@@ -72,9 +72,12 @@ document.addEventListener("DOMContentLoaded", function (e) {
         req.open("POST", baseUrl, true);
         req.setRequestHeader("Content-type", "application/json");
         req.send(JSON.stringify(obj));
+        chrome.runtime.reload()
       }
     }
 
     getData();
+    
   });
+  
 });

@@ -1,9 +1,4 @@
-/*
-function getTable(){
-    return document.querySelector('section.main-content').firstChild.nextElementSibling.textContent
-}
 
-*/
 
 function getName() {
   return document.querySelector("div.intro-title").lastChild.textContent;

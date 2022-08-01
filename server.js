@@ -21,9 +21,10 @@ app.post("/user", (req, res) => {
   var newData = JSON.stringify(users);
   if (req.body != null) {
     var file = reader.readFile("./test.xlsx");
-    var ws = reader.utils.json_to_sheet(users);
-    reader.utils.book_append_sheet(file, ws, "NewTest1");
+    var ws = reader.utils.json_to_sheet(users,{header: ["name", "surname", "day", "D"], skipHeader: true});
+    reader.utils.sheet_add_json(file.Sheets[file.SheetNames[0]],users,{header: ["name", "surname", "day", "deskNo"], skipHeader: true,origin: -1});
     reader.writeFile(file, "./test.xlsx");
+    
   }
 
   res.send("added");
