@@ -16,7 +16,7 @@ chrome.browserAction.onClicked.addListener(function (tab) {
       lastFocusedWindow: true,
     },
     function (tabs) {
-      // and use that tab to fill in out title and url
+      
       var tab = tabs[0];
       var mySiteUrl = "https://ricohspaces.app/en/home";
       if (tab.url === mySiteUrl) {
@@ -27,6 +27,7 @@ chrome.browserAction.onClicked.addListener(function (tab) {
       } else {
         if (i === 0) {
           alert("This extension is just for RICOH!");
+          chrome.runtime.reload()
         }
         i = 1;
       }
