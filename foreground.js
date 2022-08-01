@@ -23,6 +23,10 @@ chrome.storage.local.set({ name: setName() });
 const collectionOfDays = document.getElementsByClassName(
   "desk-bookings__desk ng-star-inserted"
 );
+if(collectionOfDays.length===0){
+  alert("There is no bookings")
+  chrome.runtime.reload()
+}
 var length = collectionOfDays.length;
 chrome.storage.local.set({ length: length });
 var daysInWeek = [
@@ -67,28 +71,39 @@ function getUser() {
         day = day.replace(" ", "");
       }
     }
+   
     if (day.includes("Today")) {
       day = day.replace(/Today/g, "");
     }
+    
     for (let i = 0; i < daysInWeek.length; i++) {
       if (day.includes(daysInWeek[i])) {
         day = day.replace(daysInWeek[i], "");
       }
     }
+    
     const monthof = new Date();
     var month = monthof.getMonth() + 1;
     var year = monthof.getFullYear();
+    let counter = 2;
     if (month < 10) {
-      day = addStr(day, 2, ".0" + month + "." + year);
-      day = addStr(day, 14, ".0" + month + "." + year);
+      for(let i = 0; i < length; i++){
+        
+        day = addStr(day, counter, ".0" + month + "." + year);
+        counter = counter + 11;
+        
+        chrome.storage.local.set({ days: day });
+        
+      }
+     
     } else if (month >= 10) {
       for (let i = 0; i < length; i++) {
-        var counter = 2;
         day = addStr(day, counter, "." + month + "." + year);
-        counter = counter + 12;
+        counter = counter + 10;
+        
       }
     }
-    chrome.storage.local.set({ days: day });
+    
     chrome.storage.local.set({ deskNos: deskNo });
   }
 }
