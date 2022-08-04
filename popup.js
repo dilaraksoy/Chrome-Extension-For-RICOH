@@ -63,10 +63,10 @@ document.addEventListener("DOMContentLoaded", function (e) {
       }
 
       for (let f = 0; f < days.length; f++) {
-        obj.name = name;
-        obj.surname = surname;
-        obj.day = days[f];
-        obj.deskNo = desks[f];
+        obj.Name = name;
+        obj.Surname = surname;
+        obj.Day = days[f];
+        obj.DeskNo = desks[f];
         console.log(JSON.stringify(obj));
         e.preventDefault();
 

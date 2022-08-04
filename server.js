@@ -16,18 +16,36 @@ app.post("/user", (req, res) => {
   users = [];
   const user = req.body;
   users.push(req.body);
+  
 
-  console.log(users);
+
   var newData = JSON.stringify(users);
   if (req.body != null) {
     var file = reader.readFile("./test.xlsx");
     var ws = reader.utils.json_to_sheet(users);
-    reader.utils.sheet_add_json(file.Sheets[file.SheetNames[0]], users, {
-      header: ["name", "surname", "day", "deskNo"],
-      skipHeader: true,
-      origin: -1,
-    });
-    reader.writeFile(file, "./test.xlsx");
+    let data = [];
+
+    const sheets = file.SheetNames;
+
+    for (let i = 0; i < sheets.length; i++) {
+      const temp = reader.utils.sheet_to_json(file.Sheets[file.SheetNames[i]]);
+      temp.forEach((res) => {
+       
+        
+        data.push(res);
+        
+      });
+
+    }
+    if (!JSON.stringify(data).includes(JSON.stringify(users[0]))) {
+      reader.utils.sheet_add_json(file.Sheets[file.SheetNames[0]], users, {
+        header: ["Name", "Surname", "Day", "DeskNo"],
+        skipHeader: true,
+        origin: -1,
+      });
+      reader.writeFile(file, "./test.xlsx");
+    }
+    
   }
 
   res.send("added");
@@ -36,4 +54,4 @@ app.get("/user", (req, res) => {
   console.log("sended");
   res.json(users);
 });
-app.listen(port, () => console.log(` ${users}`));
+app.listen(port, () => console.log(` ${users.length}`));
