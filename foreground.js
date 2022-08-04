@@ -16,7 +16,46 @@ function addStr(str, index, stringToAdd) {
     str.substring(0, index) + stringToAdd + str.substring(index, str.length)
   );
 }
-
+function setDay(day){
+  
+  for (let i = 0; i < day.length; i++) {
+    if (day.charAt(i) === " ") {
+      day = day.replace(" ", "");
+    }
+  }
+ 
+  if (day.includes("Today")) {
+    day = day.replace(/Today/g, "");
+  }
+  
+  for (let i = 0; i < daysInWeek.length; i++) {
+    if (day.includes(daysInWeek[i])) {
+      day = day.replace(daysInWeek[i], "");
+    }
+  }
+  
+  const monthof = new Date();
+  var month = monthof.getMonth() + 1;
+  var year = monthof.getFullYear();
+  let counter = 2;
+  if (month < 10) {
+    for(let i = 0; i < length; i++){
+      
+      day = addStr(day, counter, ".0" + month + "." + year);
+      counter = counter + 11;
+      
+      chrome.storage.local.set({ days: day });
+      
+    }
+   
+  } else if (month >= 10) {
+    for (let i = 0; i < length; i++) {
+      day = addStr(day, counter, "." + month + "." + year);
+      counter = counter + 11;
+      chrome.storage.local.set({ days: day });
+    }
+  }
+}
 let day = "";
 let deskNo = "";
 chrome.storage.local.set({ name: setName() });
@@ -38,9 +77,9 @@ var daysInWeek = [
 ];
 function getUser() {
   if (collectionOfDays.length === 1) {
-    chrome.storage.local.set({
-      day: collectionOfDays[0].parentElement.firstChild.textContent,
-    });
+    day=collectionOfDays[0].parentElement.firstChild.textContent;
+    setDay(day)
+    
     chrome.storage.local.set({
       deskno:
         collectionOfDays[0].firstChild.firstChild.firstChild.nextElementSibling
@@ -64,44 +103,7 @@ function getUser() {
             .nextElementSibling.firstChild.nextElementSibling.textContent;
       }
     }
-    for (let i = 0; i < day.length; i++) {
-      if (day.charAt(i) === " ") {
-        day = day.replace(" ", "");
-      }
-    }
-   
-    if (day.includes("Today")) {
-      day = day.replace(/Today/g, "");
-    }
-    
-    for (let i = 0; i < daysInWeek.length; i++) {
-      if (day.includes(daysInWeek[i])) {
-        day = day.replace(daysInWeek[i], "");
-      }
-    }
-    
-    const monthof = new Date();
-    var month = monthof.getMonth() + 1;
-    var year = monthof.getFullYear();
-    let counter = 2;
-    if (month < 10) {
-      for(let i = 0; i < length; i++){
-        
-        day = addStr(day, counter, ".0" + month + "." + year);
-        counter = counter + 11;
-        
-        chrome.storage.local.set({ days: day });
-        
-      }
-     
-    } else if (month >= 10) {
-      for (let i = 0; i < length; i++) {
-        day = addStr(day, counter, "." + month + "." + year);
-        counter = counter + 11;
-        
-      }
-    }
-    
+    setDay(day);
     chrome.storage.local.set({ deskNos: deskNo });
   }
 }

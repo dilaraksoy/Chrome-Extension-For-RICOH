@@ -30,8 +30,24 @@ document.addEventListener("DOMContentLoaded", function (e) {
         chrome.runtime.reload()
       }
       if (length === 1) {
-        day = await readLocalStorage("day");
-        deskNo = await readLocalStorage("deskNo");
+        day = await readLocalStorage("days");
+        deskNo = await readLocalStorage("deskno");
+        
+          obj.Name = name;
+          obj.Surname = surname;
+          obj.Day = day;
+          obj.DeskNo = deskNo;
+          console.log(JSON.stringify(obj));
+          e.preventDefault();
+  
+          const req = new XMLHttpRequest();
+          const baseUrl = "http://localhost:3000/user";
+          const data = obj;
+          req.open("POST", baseUrl, true);
+          req.setRequestHeader("Content-type", "application/json");
+          req.send(JSON.stringify(obj));
+          chrome.runtime.reload()
+        
       } else day = await readLocalStorage("days");
       var newDay = "";
       var newDesk = "";
