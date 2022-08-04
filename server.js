@@ -19,7 +19,7 @@ app.post("/user", (req, res) => {
   
 
 
-  var newData = JSON.stringify(users);
+  
   if (req.body != null) {
     var file = reader.readFile("./test.xlsx");
     var ws = reader.utils.json_to_sheet(users);
@@ -54,4 +54,4 @@ app.get("/user", (req, res) => {
   console.log("sended");
   res.json(users);
 });
-app.listen(port, () => console.log(` ${users.length}`));
+app.listen(port, () => console.log("Started"));
