@@ -19,3 +19,7 @@ body{
     border-radius: 2rem;
     margin-left: 30%;
 }
+#warning{
+    color: rgb(255, 254, 254);
+    margin-top: 10%;
+}
