@@ -1,6 +1,9 @@
 
 
 chrome.browserAction.onClicked.addListener(function (tab) {
+  chrome.tabs.onActivated.addListener(function(tab){
+    chrome.runtime.reload();
+  })
   chrome.tabs.query(
     {
       active: true,
